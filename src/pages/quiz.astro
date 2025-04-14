@@ -250,13 +250,21 @@
 
         answers.forEach((answer, index) => {
           const question = questions[index];
+          if (!question) {
+            console.error(`問題 ${index + 1} 不存在，跳過計分`);
+            return;
+          }
+          console.log(`問題 ${index + 1}：回答=${answer}, positive=${question.positive}, negative=${question.negative}`);
           if (answer === 2) {
             scores[question.positive] += 2;
+            console.log(`${question.positive} +2, 分數=${scores[question.positive]}`);
           } else if (answer === 1) {
             scores[question.positive] += 1;
             scores[question.negative] += 1;
+            console.log(`${question.positive} +1, 分數=${scores[question.positive]}, ${question.negative} +1, 分數=${scores[question.negative]}`);
           } else {
             scores[question.negative] += 2;
+            console.log(`${question.negative} +2, 分數=${scores[question.negative]}`);
           }
         });
 
